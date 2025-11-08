@@ -156,7 +156,7 @@ function generateAuthors() {
 
     const linkHTML = '<a href="#author' + articleAuthor + '">' + articleAuthor + '</a>';
     authorWrapper.innerHTML = linkHTML;
-  console.log(articleAuthor);
+    //console.log(articleAuthor);
   }
 }
 
@@ -169,13 +169,17 @@ function authorClickHandler(event){
   const href = clickedElement.getAttribute('href');
   const author = href.replace('#author-', '');
 
-
   const activeAuthorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+  for(let activeAuthor of activeAuthorLinks){
+    activeAuthor.classList.remove('active');
+  }
+
+  const authorLinks = document.querySelectorAll(`a[href="${href}"]`);
   for(let authorLink of authorLinks){
     authorLink.classList.add('active');
   }
 
-  generateTitleLinks(`[data-author="' + author + '"]`);
+  generateTitleLinks(`[data-author="${author}"]`);
 
   const links = document.querySelectorAll('.titles a');
   for(let link of links){
