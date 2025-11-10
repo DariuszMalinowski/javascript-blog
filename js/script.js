@@ -8,7 +8,8 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags .list',
   optCloudClassCount = 5,
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorListSelector = '.list.authors';
 
 function generateTitleLinks(customSelector = ''){
 
@@ -152,6 +153,7 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 function generateAuthors() {
+  let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
   for(let article of articles){
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
@@ -160,10 +162,24 @@ function generateAuthors() {
     const linkHTML = '<a href="#author' + articleAuthor + '">' + articleAuthor + '</a>';
     authorWrapper.innerHTML = linkHTML;
     //console.log(articleAuthor);
+    if (!allAuthors[articleAuthor]){
+      allAuthors[articleAuthor] = 1;
+    } else {
+      allAuthors[articleAuthor]++;
+    }
   }
+  const authorList = document.querySelector(optAuthorListSelector);
+  let allAuthorsHTML = '';
+  for(let author in allAuthors){
+    const authorLinkHTML = `<li><a href="#author-${author}">${author} (${allAuthors[author]})</a></li>`;
+    allAuthorsHTML += authorLinkHTML + ' ';
+  }
+
+  authorList.innerHTML = allAuthorsHTML;
 }
 
 generateAuthors();
+addClickListenersToAuthors();
 
 function authorClickHandler(event){
   event.preventDefault();
@@ -190,14 +206,14 @@ function authorClickHandler(event){
   }
 }
 
-function addClickListenersToAuhors(){
+function addClickListenersToAuthors(){
   const authorLinks = document.querySelectorAll('a[href^="#author-"]');
   for(let authorLink of authorLinks){
     authorLink.addEventListener('click', authorClickHandler);
   }
 }
 
-addClickListenersToAuhors();
+addClickListenersToAuthors();
 
 function calculateTagsParams(allTags){
   const params = {
@@ -274,9 +290,9 @@ function generateTagsList(){
     const tagLinkHTML = `<li><a href="#tag-${tag}" class="${calculateTagClass(allTags[tag], tagsParams)}">${tag}</a></li>`;
     console.log('tagLinkHTML:', tagLinkHTML);
     allTagsHTML += tagLinkHTML + ' ';
-  }
-  /* [NEW] END LOOP: for each tag in allTags: */
 
+  /* [NEW] END LOOP: for each tag in allTags: */
+  }
   /*[NEW] add HTML from allTagsHTML to tagList */
   tagList.innerHTML = allTagsHTML;
   console.log(allTags);
@@ -284,3 +300,7 @@ function generateTagsList(){
 
 generateTagsList ();
 addClickListenersToTags();
+
+
+
+
