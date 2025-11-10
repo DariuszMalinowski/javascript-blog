@@ -98,6 +98,56 @@ body {
   }
 }
 
+/*Tags*/
+
+.tags .list {
+  //list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0,5rem;
+}
+
+/* Wygląd pojedynczego taga */
+.tags a {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 0.3rem 0.8rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.tags a:hover {
+  background-color: #ee6bd3;
+  color: #000;
+}
+
+.tag-size-1 {
+  font-size: 60%;
+  color: #3b82f6;
+}
+
+.tag-size-2 {
+  font-size: 80%;
+  color: aqua;
+}
+
+.tag-size-3 {
+  font-size: 100%;
+  color: green;
+}
+
+.tag-size-4 {
+  font-size: 120%;
+  color: blueviolet;
+}
+
+.tag-size-5 {
+  font-size: 140%;
+  color: brown;
+}
+
 /* Authors */
 
 .authors {

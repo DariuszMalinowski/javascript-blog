@@ -283,4 +283,4 @@ function generateTagsList(){
 }
 
 generateTagsList ();
-
+addClickListenersToTags();
